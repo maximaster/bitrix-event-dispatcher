@@ -1,0 +1,20 @@
+{
+    "name": "maximaster/bitrix-event-dispatcher",
+    "description": "EventDispatcherInterface-совместимый диспетчер для регистрации обработки событий вызываемых через API Битрикс.",
+    "minimum-stability": "RC",
+    "prefer-stable": true,
+    "license": "MIT",
+    "require": {
+        "php": "^7.4|^8.2",
+        "maximaster/bitrix-enums": "^18.5.180",
+        "webmozart/assert": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maximaster\\BitrixEventDispatcher\\": "src/"
+        }
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.59"
+    }
+}
