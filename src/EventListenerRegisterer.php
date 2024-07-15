@@ -5,24 +5,43 @@ declare(strict_types=1);
 namespace Maximaster\BitrixEventDispatcher;
 
 use Bitrix\Main\EventManager;
-use Maximaster\BitrixEventDispatcher\Contract\EventDescriber;
+use Marcosh\LamPHPda\Maybe;
+use Maximaster\BitrixEventDispatcher\Contract\Event;
 use Maximaster\BitrixEventDispatcher\Contract\EventListenerRegisterer as EventListenerRegistererInterface;
+use Maximaster\BitrixValueObjects\Main\ModuleId;
 
+/**
+ * Регистрирует обработчик события в Битрикс.
+ */
 class EventListenerRegisterer implements EventListenerRegistererInterface
 {
-    private EventDescriber $describer;
-
-    public function __construct(EventDescriber $describer)
-    {
-        $this->describer = $describer;
-    }
-
     public function registerEvent(string $eventClass, callable $handler, int $sort): void
     {
-        $manager = EventManager::getInstance();
+        if (is_a($eventClass, Event::class, true) === false) {
+            return;
+        }
 
-        $event = $this->describer->describeEvent($eventClass);
+        /**
+         * @var Event|string $eventClass
+         *
+         * @psalm-var class-string<Event> $eventClass
+         *
+         * @psalm-suppress UndefinedClass why:impossible-dependency
+         */
+        EventManager::getInstance()->addEventHandler(
+            $this->resolveModuleName($eventClass::module()),
+            $eventClass::name(),
+            $handler,
+            false,
+            $sort
+        );
+    }
 
-        $manager->addEventHandler($event->modue()->getValue(), $event->name(), $handler, false, $sort);
+    /**
+     * @psalm-param Maybe<ModuleId> $moduleId
+     */
+    private function resolveModuleName(Maybe /* <ModuleId> */ $moduleId): string
+    {
+        return $moduleId->eval('', static fn (ModuleId $moduleId) => $moduleId->__toString());
     }
 }

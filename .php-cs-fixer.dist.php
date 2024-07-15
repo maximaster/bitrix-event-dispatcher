@@ -17,4 +17,7 @@ return (new PhpCsFixer\Config())
         'yoda_style' => false,
         'phpdoc_align' => false,
         'global_namespace_import' => true,
+        // Приходится, т.к. порой приходится перебивать типизацию, а psalm с
+        // обычных блоков комментариев не будет считывать типы.
+        'phpdoc_to_comment' => false,
     ]);

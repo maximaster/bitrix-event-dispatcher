@@ -9,5 +9,5 @@ interface ProductiveEvent extends Event
     /**
      * Возвращает результат выполнения запроса.
      */
-    public function product();
+    public function product(): mixed;
 }

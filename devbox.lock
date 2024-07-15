@@ -1,38 +1,44 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "php74Packages.composer@latest": {
-      "last_modified": "2022-06-09T23:02:28Z",
-      "resolved": "github:NixOS/nixpkgs/99fcf0ee74957231ff0471228e9a59f976a0266b#php74Packages.composer",
+    "php82Packages.composer@latest": {
+      "last_modified": "2024-07-07T16:08:25Z",
+      "resolved": "github:NixOS/nixpkgs/ab82a9612aa45284d4adf69ee81871a389669a9e#php82Packages.composer",
       "source": "devbox-search",
-      "version": "2.3.5",
+      "version": "2.7.7",
       "systems": {
+        "aarch64-darwin": {
+          "store_path": "/nix/store/60i47wqd6k1icmw14ll154xi8rp4kc6x-composer-2.7.7"
+        },
         "aarch64-linux": {
-          "store_path": "/nix/store/8xcxwsq276zw9pighwkk670lmh250ksq-php-composer-2.3.5"
+          "store_path": "/nix/store/a7830ssfqanwv1hz9r8xhsbbxdsmx14j-composer-2.7.7"
+        },
+        "x86_64-darwin": {
+          "store_path": "/nix/store/cjwm9lflr52ljrripwm7bz8q1fxf19ij-composer-2.7.7"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/gwaic1p2ckr2r3c7cpi4h2gn40jrigpz-php-composer-2.3.5"
+          "store_path": "/nix/store/pnggsbdadd7n90pms03b01j2802j8dxp-composer-2.7.7"
         }
       }
     },
-    "php@7.4": {
-      "last_modified": "2022-06-09T23:02:28Z",
+    "php@8.2": {
+      "last_modified": "2024-07-07T16:08:25Z",
       "plugin_version": "0.0.3",
-      "resolved": "github:NixOS/nixpkgs/99fcf0ee74957231ff0471228e9a59f976a0266b#php74",
+      "resolved": "github:NixOS/nixpkgs/ab82a9612aa45284d4adf69ee81871a389669a9e#php",
       "source": "devbox-search",
-      "version": "7.4.29",
+      "version": "8.2.20",
       "systems": {
         "aarch64-darwin": {
-          "store_path": "/nix/store/p06m3r8qc8w2l4hv3vq0642yxgxpcg2c-php-with-extensions-7.4.29"
+          "store_path": "/nix/store/h2rw3hjp0ad863vzyk4jrc1zihab0q50-php-with-extensions-8.2.20"
         },
         "aarch64-linux": {
-          "store_path": "/nix/store/1m976qsswziaj1vrr3p8xprh73j8snsi-php-with-extensions-7.4.29"
+          "store_path": "/nix/store/ld4gi0bac2ki5d1nwbgpbkqjwl3kiz2n-php-with-extensions-8.2.20"
         },
         "x86_64-darwin": {
-          "store_path": "/nix/store/qxlqpk6skzjjxn0x0kbjn6npa19d0hil-php-with-extensions-7.4.29"
+          "store_path": "/nix/store/25ijby01xdwy6x6j3grqfmypbgm72a0c-php-with-extensions-8.2.20"
         },
         "x86_64-linux": {
-          "store_path": "/nix/store/37vsxwxxfdcfmyc76yvl4n1aqanak8jy-php-with-extensions-7.4.29"
+          "store_path": "/nix/store/sgrrl6dmgdjss5cmrrdgq2a76qwg6ngq-php-with-extensions-8.2.20"
         }
       }
     }

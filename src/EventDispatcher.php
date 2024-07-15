@@ -10,13 +10,18 @@ use ReflectionException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Диспетчер событий.
+ */
 class EventDispatcher implements EventDispatcherInterface
 {
     private EventDispatcherInterface $upstream;
     private EventListenerRegisterer $registerer;
 
     /**
-     * TODO подумать как избежать состояния.
+     * TODO подумать как избежать состояния, в идеале, надо брать его из
+     *      Битрикса напрямую через отдельный сервис, чтобы сброс обработчиков
+     *      там, влиял и на диспетчер.
      *
      * @var string[]
      */
@@ -31,7 +36,7 @@ class EventDispatcher implements EventDispatcherInterface
     /**
      * @throws ReflectionException
      */
-    public function addListener(string $eventName, $listener, int $priority = 0): void
+    public function addListener(string $eventName, callable $listener, int $priority = 0): void
     {
         if (
             class_exists($eventName)
@@ -49,10 +54,21 @@ class EventDispatcher implements EventDispatcherInterface
 
     public function addSubscriber(EventSubscriberInterface $subscriber): void
     {
-        $this->upstream->addSubscriber($subscriber);
+        $temporaryDispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+        $temporaryDispatcher->addSubscriber($subscriber);
+
+        foreach ($temporaryDispatcher->getListeners() as $eventName => $eventListeners) {
+            foreach ($eventListeners as $listener) {
+                $this->addListener(
+                    $eventName,
+                    $listener,
+                    $temporaryDispatcher->getListenerPriority($eventName, $listener) ?? 0
+                );
+            }
+        }
     }
 
-    public function removeListener(string $eventName, $listener): void
+    public function removeListener(string $eventName, callable $listener): void
     {
         $this->upstream->removeListener($eventName, $listener);
     }
@@ -62,27 +78,17 @@ class EventDispatcher implements EventDispatcherInterface
         $this->upstream->removeSubscriber($subscriber);
     }
 
-    /**
-     * @return callable[]
-     */
     public function getListeners(?string $eventName = null): array
     {
         return $this->upstream->getListeners($eventName);
     }
 
-    /**
-     * @psalm-template EventType of object
-     *
-     * @psalm-param class-string<EventType> $event
-     *
-     * @psalm-return EventType
-     */
     public function dispatch(object $event, ?string $eventName = null): object
     {
         return $this->upstream->dispatch($event, $eventName);
     }
 
-    public function getListenerPriority(string $eventName, $listener): ?int
+    public function getListenerPriority(string $eventName, callable $listener): ?int
     {
         return $this->upstream->getListenerPriority($eventName, $listener);
     }

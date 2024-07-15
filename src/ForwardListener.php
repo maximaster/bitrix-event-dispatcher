@@ -11,7 +11,11 @@ use ReflectionException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Является слушателем который создаёт событие из данных Битриксового события и пробрасывает его в dispatcher.
+ * Слушатель создающий событие из данных Битриксового события и пробрасывающий
+ * его в dispatcher.
+ *
+ * При этом аргументы события Битрикс напрямую становятся аргументами
+ * конструктора класса события.
  */
 class ForwardListener
 {
@@ -34,7 +38,7 @@ class ForwardListener
      *
      * @throws ReflectionException
      */
-    public function __invoke(&...$args)
+    public function __invoke(mixed &...$args)
     {
         $event = $this->eventClass->newInstanceArgs($args);
         $this->dispatcher->dispatch($event);

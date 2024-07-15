@@ -11,6 +11,8 @@ interface CancellableEvent extends Event
     /**
      * Отменить событие с указанным сообщением.
      *
+     * @psalm-suppress UndefinedDocblockClass why:impossible-dependency
+     *
      * @param string|CApplicationException $message
      *
      * @SuppressWarnings(PHPMD.CamelCaseVariableName)
