@@ -18,5 +18,8 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.59",
         "psalm/phar": "^5.25"
-    }
+    },
+    "authors": [
+        {"name": "Лавриненко Максим", "email": "maxim.lavrinenko@maximaster.ru"}
+    ]
 }
